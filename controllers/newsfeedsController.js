@@ -2,5 +2,5 @@
 // @route       GET /newsfeed
 // @access      Private
 exports.getNewsFeed = (req, res) => {
-	res.send('newsfeed');
+	res.status(200).render('newsfeed', { user: '' });
 };
