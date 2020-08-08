@@ -1,0 +1,272 @@
+.newsfeed {
+
+// position: relative;
+&__profile {
+color: #fff;
+position: relative;
+display: flex;
+width: 100%;
+padding: 10px;
+background: linear-gradient(to bottom, rgba(39, 170, 225, 0.8), rgba(28, 117, 188, 0.8)), url(/public/images/bg-1.jpg)
+no-repeat;
+background-size: cover;
+min-height: 90px;
+border-radius: 3px;
+
+img {
+max-width: 100%;
+width: 70px;
+height: 70px;
+border-radius: 50%;
+position: absolute;
+top: -30px;
+border: 8px solid #fff;
+}
+
+div {
+position: absolute;
+top: -12px;
+left: 75px;
+
+a {
+font-weight: 400;
+}
+
+a:hover {
+text-decoration: underline;
+}
+}
+}
+}
+
+.my-newsfeed {
+padding: 0 20px;
+
+&__nav {
+display: flex;
+flex-direction: column;
+padding-left: 20px;
+padding-right: 20px;
+margin: 0 0 40px 0;
+
+li {
+border-bottom: 1px solid #f1f2f2;
+list-style: none;
+display: block;
+padding: 15px 0;
+display: flex;
+align-items: center;
+
+i {
+padding-right: 10px;
+color: #8dc63f;
+}
+
+a {
+color: #6d6e71;
+font-size: 1.3rem;
+}
+
+a:hover {
+text-decoration: underline;
+}
+}
+}
+}
+
+.chatbox {
+margin: 0 0 40px 0;
+text-align: center;
+
+&__online {
+background: #8dc63f;
+padding: 5px 20px;
+border-radius: 15px;
+position: relative;
+margin: 0 auto 20px;
+color: #fff;
+font-size: 1.4rem;
+font-weight: 600;
+width: 80%;
+}
+
+&__li {
+text-align: center;
+margin: 0 auto;
+display: flex;
+flex-wrap: wrap;
+border-radius: 50%;
+
+li {
+position: relative;
+list-style: none;
+margin: 3px auto !important;
+padding-left: 2px;
+padding-right: 2px;
+}
+
+img {
+height: 65px;
+width: 65px;
+border-radius: 50%;
+}
+
+.online-dot {
+background: linear-gradient(to bottom, rgba(141, 198, 63, 1), rgba(0, 148, 68, 1));
+width: 10px;
+height: 10px;
+// display: block;
+border-radius: 50%;
+position: absolute;
+left: 43%;
+bottom: 3px;
+}
+}
+}
+
+.suggestion {
+position: fixed;
+right: 135px;
+
+&__follow {
+li {
+border-bottom: 1px solid #f1f2f2;
+padding: 12px 0;
+}
+}
+
+h4 {
+margin-top: 0;
+}
+
+a {
+font-size: 1.3rem;
+color: #8dc63f;
+}
+}
+
+.create-post {
+width: 100%;
+min-height: 90px;
+border-bottom: 1px solid #f1f2f2;
+
+.form-tag {
+padding: 0;
+border: none;
+}
+
+.text-image {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-bottom: 0;
+}
+
+img {
+// max-width: 100%;
+width: 70px;
+height: 70px;
+border-radius: 50%;
+border: 8px solid #fff;
+}
+
+.tools {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 23px;
+}
+}
+
+.post-content {
+background: #f8f8f8;
+
+img {
+padding: 1px;
+// border-radius: 10px;
+border-top-left-radius: 2px solid #8dc63f;
+border-top-right-radius: 2px solid #8dc63f;
+border: 1px solid #8dc63f;
+}
+
+.post-detail {
+padding-top: 10px;
+padding-right: 30px;
+
+.post-img {
+border-radius: 50%;
+border: none;
+width: 70px;
+height: 70px;
+display: flex;
+}
+
+&__user-info {
+padding: 10px 10px 0 0;
+position: relative;
+
+.reaction {
+position: absolute;
+right: 0;
+top: 35px;
+
+span {
+font-size: 14px;
+cursor: pointer;
+}
+}
+}
+
+&__post-text {
+padding: 10px 20px 10px 0;
+}
+
+&__post-comment {
+display: flex;
+align-items: center;
+width: 100%;
+padding-top: 10px;
+
+p {
+margin-left: 20px;
+}
+
+.comment-form {
+width: 100%;
+margin: 10px 0 0 20px;
+background: #fff;
+border: 1px solid rgba(102, 175, 233, 0.6);
+border-radius: 3px;
+padding: 2px 7px;
+font-size: 14px;
+transition: all 0.3s ease;
+
+&:focus {
+border-color: #66afe9 !important;
+outline: 0;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+}
+}
+}
+}
+
+input:not([type]):focus:not([readonly]),
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="password"]:not(.browser-default):focus:not([readonly]),
+input[type="email"]:not(.browser-default):focus:not([readonly]),
+input[type="url"]:not(.browser-default):focus:not([readonly]),
+input[type="time"]:not(.browser-default):focus:not([readonly]),
+input[type="date"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime-local"]:not(.browser-default):focus:not([readonly]),
+input[type="tel"]:not(.browser-default):focus:not([readonly]),
+input[type="number"]:not(.browser-default):focus:not([readonly]),
+input[type="search"]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+border-color: #66afe9 !important;
+outline: 0;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}

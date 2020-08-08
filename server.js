@@ -2,11 +2,14 @@ const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
 const sass = require('node-sass-middleware');
+const morgan = require('morgan');
+const colors = require('colors');
+
+const errorHandler = require('./middlewares/error');
 
 const newsfeedRoutes = require('./routes/newsfeedsRoutes');
 
 //load env var
-
 dotenv.config({
 	path: './config/config.env'
 });
@@ -14,6 +17,10 @@ dotenv.config({
 console.log(process.env.NODE_ENV);
 
 const app = express();
+
+if (process.env.NODE_ENV === 'development') {
+	app.use(morgan('dev'));
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,15 +38,19 @@ app.use(
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/newsfeed', newsfeedRoutes);
+app.use('/ranter/newsfeed', newsfeedRoutes);
 
 app.get('/', (req, res) => {
 	res.render('index');
 });
 
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(
 	PORT,
-	console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+	console.log(
+		`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.green.bold
+	)
 );
