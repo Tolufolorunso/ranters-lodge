@@ -6,25 +6,35 @@ const morgan = require('morgan');
 const colors = require('colors');
 const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 const respondInternalError = require('./middlewares/error');
 
 const newsfeedRoutes = require('./routes/newsfeedsRoutes');
 const auth = require('./routes/authRoutes');
+const usersRoutes = require('./routes/userRoutes');
 
 //load env var
 dotenv.config({
 	path: './config/config.env'
 });
 
-//Connect to DB
-connectDB();
-
 console.log(process.env.NODE_ENV);
 
 const app = express();
 // Middlewares
 // app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+	session({
+		secret: process.env.SESSION_SECRET,
+		cookie: { maxAge: 60000 },
+		resave: false,
+		saveUninitialized: false
+	})
+);
+app.use(flash());
 
 // Body parser
 app.use(express.json());
@@ -53,9 +63,13 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', auth);
+app.use('/users', usersRoutes);
 app.use('/ranter/newsfeed', newsfeedRoutes);
 
 app.get('/', (req, res) => {
+	if (req.cookies.jwt) {
+		return res.redirect('/ranter/newsfeed');
+	}
 	res.render('index');
 });
 
@@ -69,6 +83,9 @@ const server = app.listen(
 		`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.green.bold
 	)
 );
+
+//Connect to DB
+connectDB();
 
 //Handle unheandle promise rejection
 process.on('unhandledRejection', (error, promise) => {

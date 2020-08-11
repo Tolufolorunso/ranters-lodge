@@ -12,6 +12,9 @@ const { check } = require('express-validator');
 // @route       GET /auth/register
 // @access      public
 exports.getRegisterForm = catchAsync(async (req, res, next) => {
+	if (req.cookies.jwt) {
+		return res.redirect('/ranter/newsfeed');
+	}
 	res.status(200).render('auth/register', { errorsValidation: [] });
 });
 
@@ -19,7 +22,13 @@ exports.getRegisterForm = catchAsync(async (req, res, next) => {
 // @route       GET /auth/login
 // @access      public
 exports.getLoginForm = catchAsync(async (req, res, next) => {
-	res.status(200).render('auth/login', { errorsValidation: [] });
+	if (req.cookies.jwt) {
+		return res.redirect('/ranter/newsfeed');
+	}
+	res.status(200).render('auth/login', {
+		errorsValidation: [],
+		message: req.flash('info')
+	});
 });
 
 // @desc        Post register form.
@@ -48,11 +57,11 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 	// create token
 	// const token = user.getSignedJWTToken();
 
+	req.flash('info', `Registration is successful ${username}`);
+	req.flash('email', email);
 	res.status(201).json({
 		status: 'success',
-		data: {
-			user
-		}
+		user
 	});
 });
 
@@ -103,25 +112,7 @@ exports.postLoginForm = catchAsync(async (req, res, next) => {
 	});
 });
 
-// @desc        Get my detail(profile).
-// @route       GET /auth/me
-// @access      pravite
-exports.getMe = catchAsync(async (req, res, next) => {
-	const user = await User.findOne({ _id: req.user.id });
-	console.log(user);
-	if (!user) {
-		return next(new AppError('No user found', 401));
-	}
-	console.log(user);
-	res.status(200).json({
-		status: 'fail',
-		data: {
-			user
-		}
-	});
-});
-
-// @desc        Forget password.
+// @desc        Forgot password.
 // @route       POST /auth/forgotpassword
 // @access      public
 exports.forgotpassword = catchAsync(async (req, res, next) => {

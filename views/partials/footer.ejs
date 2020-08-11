@@ -1,6 +1,66 @@
 <footer>
     <p></p>
 </footer>
+<div class="alert">
+    <div class="container">
+        <div class="alert-box" id="alert-box">
+            <p></p>
+        </div>
+    </div>
+</div>
+<div hidden class="spinner" id="spinner"></div>
+
+
+<div class="login-register" id="login-register">
+    <form class="form-tag active" id="login-form">
+        <h1 class="">Login</h1>
+        <div class="form-group">
+            <input type="text" placeholder="Enter email" name="email" id="login-email" />
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Enter Password" />
+        </div>
+        <p><small>By signing up you agree to the terms</small></p>
+        <div class="form-group form-tag__btn">
+            <button type="submit" class="btn blue " id="login">Login</button>
+        </div>
+    </form>
+    <form method="POST" style="display: block;" class="form-tag register-form" id="register-form" novalidate>
+        <h1>Register</h1>
+        <div class="form-group">
+            <input type="text" placeholder="Enter Username" name="username"
+                value="<%= typeof name !== 'undefined' ? name : '' %>" class="" />
+        </div>
+        <div class="form-group">
+            <input type="email" placeholder="Enter email" name="email"
+                value="<%= typeof email !== 'undefined' ? email : '' %>" class="" />
+        </div>
+        <!-- <p>
+            <label>
+                <input type="radio" class="with-gap" name="gender" value="male" />
+                <span>male</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="radio" class="with-gap" name="gender" value="female" />
+                <span>Female</span>
+            </label>
+        </p> -->
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Enter Password"
+                value="<%= typeof password !== 'undefined' ? password : '' %>" class="" />
+        </div>
+        <div class="form-group">
+            <input type="password" name="passwordConfirm" placeholder="Confirm password" name="passwordConfirm"
+                class="" />
+        </div>
+        <p><small>By signing up you agree to the terms</small></p>
+        <div class="form-group form-tag__btn">
+            <button type="submit" class="btn blue">Signup</button>
+        </div>
+    </form>
+</div>
 <!-- Compiled and minified JavaScript -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>

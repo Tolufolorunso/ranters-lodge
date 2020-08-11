@@ -1,18 +1,26 @@
-.flex-c {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+// .flex-c {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+// .profile-image-s {
+//     height: 40px !important;
+//     width: 40px;
+//     border-radius: 50%;
+//     border: none;
+// }
+
+// .is_stuck {
+//     position: fixed;
+//     top: 90px;
+//     width: 248.5px;
+// }
+
+.padding {
+    padding-left: 0 !important;
 }
 
-.profile-image-s {
-    height: 40px !important;
-    width: 40px;
-    border-radius: 50%;
-    border: none;
-}
-
-.is_stuck {
-    position: fixed;
-    top: 90px;
-    width: 248.5px;
+.margin {
+    padding: 0;
 }

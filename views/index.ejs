@@ -1,55 +1,8 @@
 <%- include('partials/header') %>
-<header class="home__header">
+<header class="hero-image">
     <div class="container">
-        <div class="home__header__form">
-            <h1>tolu</h1>
-            <form action="/register" method="POST" class="form-tag register-form" id="register-form" novalidate>
-                <div class="form-group">
-                    <input type="text" placeholder="Enter Name" name="name">
-                </div>
-                <div class="form-group">
-                    <input type="email" placeholder="Enter email" name="email">
-                </div>
-                <div class="form-group">
-                    <input type="number" placeholder="Enter Zip Code" name="zip">
-                </div>
-                <p>
-                    <label>
-                        <input type="radio" class="with-gap" name="gender" value="male">
-                        <span>male</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input type="radio" class="with-gap" name="gender" value="female">
-                        <span>Female</span>
-                    </label>
-                </p>
-                <div class="form-group">
-                    <input type="password" name="password" placeholder="Enter Password" name="password">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="passwordConfirm" placeholder="Confirm password" name="passwordConfirm">
-                </div>
-                <p><small>By signing up you agree to the terms</small></p>
-                <div class="form-group form-tag__btn">
-                    <button type="submit" class="btn btn-login">Signup</button>
-                </div>
-
-            </form>
-            <form method="POST" class="form-tag login-form active" id="login-form" novalidate>
-                <div class="form-group">
-                    <input type="text" placeholder="Enter email" name="email">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" placeholder="Enter Password">
-                </div>
-                <p><small>By signing up you agree to the terms</small></p>
-                <div class="form-group form-tag__btn">
-                    <button type="submit" class="btn btn-login">Login</button>
-                </div>
-            </form>
-            <a href="#" class="home__header__account" id="account">You dont Have an account</a>
+        <div class="hero-context">
+            <h1><span class="hero-r">R</span>ant Here</h1>
         </div>
     </div>
 </header>
@@ -60,7 +13,10 @@
             <div class="row">
                 <div class="col l4">
                     <div class="big-icon">
-                        <i class="fa fa-frown fa-3x"></i>
+                        <!-- <i class="fa fa-frown fa-3x"></i> -->
+                        <svg class="icon-home">
+                            <use xlink:href="/public/images/sprite.svg#icon-sad"></use>
+                        </svg>
                     </div>
                     <h3>Are you angry?</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis nostrum eius facere, commodi
@@ -69,7 +25,9 @@
                 </div>
                 <div class="col l4">
                     <div class="big-icon">
-                        <i class="fa fa-sign fa-3x"></i>
+                        <svg class="icon-home">
+                            <use xlink:href="/public/images/sprite.svg#icon-home"></use>
+                        </svg>
                     </div>
                     <h3>Don't be</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis nostrum eius facere, commodi
@@ -78,7 +36,9 @@
                 </div>
                 <div class="col l4">
                     <div class="big-icon">
-                        <i class="fa fa-smile fa-3x"></i>
+                        <svg class="icon-home">
+                            <use xlink:href="/public/images/sprite.svg#icon-smile"></use>
+                        </svg>
                     </div>
                     <h3>Be Happy</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis nostrum eius facere, commodi

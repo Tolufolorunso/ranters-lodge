@@ -1,0 +1,156 @@
+<%- include('./partials/header') %>
+<main>
+    <section class="newsfeed">
+        <div class="container">
+            <div class="row mt-m">
+                <div class="col l4 m12">
+                    <%- include('./partials/profile-left') %>
+                </div>
+                <div class="col l8 m12">
+                    <div class="chat-box">
+                        <div class="chat-box__main">
+                            <div class="chat-box__main-header">
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg"
+                                    alt="avatar" />
+                                <div class="about">
+                                    <div class="chat-with">Chat with Vincent Porter</div>
+                                    <div class="chat-num-messages">already 1 902 messages</div>
+                                </div>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="chat-box__main-history">
+                                <ul id="messages-box">
+                                    <li id="sender" class="sender">
+                                        <div class="message-data">
+                                            <span class="message-data-time">10:10 AM, Today</span>
+                                            &nbsp; &nbsp;
+                                            <span class="message-data-name">Kola</span>
+                                            <i class="fa fa-circle me"></i>
+                                        </div>
+                                        <div class="message">
+                                            Hi Vincent, how are you? How is the project coming along?
+                                        </div>
+                                    </li>
+                                    <li class="receiver">
+                                        <div class="message-data">
+                                            <span class="message-data-name"><i class="fa fa-circle online"></i>
+                                                Vincent</span>
+                                            <span class="message-data-time">10:12 AM, Today</span>
+                                        </div>
+                                        <div class="message">
+                                            Are we meeting today? Project has been already finished
+                                            and I have results to show you.
+                                        </div>
+                                    </li>
+                                    <li id="sender" class="sender">
+                                        <div class="message-data">
+                                            <span class="message-data-time">10:10 AM, Today</span>
+                                            &nbsp; &nbsp;
+                                            <span class="message-data-name">Kola</span>
+                                            <i class="fa fa-circle me"></i>
+                                        </div>
+                                        <div class="message">
+                                            Hi Vincent, how are you? How is the project coming along?
+                                        </div>
+                                    </li>
+                                    <li id="sender" class="sender">
+                                        <div class="message-data">
+                                            <span class="message-data-time">10:10 AM, Today</span>
+                                            &nbsp; &nbsp;
+                                            <span class="message-data-name">Kola</span>
+                                            <i class="fa fa-circle me"></i>
+                                        </div>
+                                        <div class="message">
+                                            Hi Vincent, how are you? How is the project coming along?
+                                        </div>
+                                    </li>
+                                    <li id="sender" class="sender">
+                                        <div class="message-data">
+                                            <span class="message-data-time">10:10 AM, Today</span>
+                                            &nbsp; &nbsp;
+                                            <span class="message-data-name">Kola</span>
+                                            <i class="fa fa-circle me"></i>
+                                        </div>
+                                        <div class="message">
+                                            Hi Vincent, how are you? How is the project coming along?
+                                        </div>
+                                    </li>
+                                    <li class="receiver">
+                                        <div class="message-data align-right">
+                                            <span class="message-data-time">10:14 AM, Today</span>
+                                            &nbsp; &nbsp;
+                                            <span class="message-data-name">Olia</span>
+                                            <i class="fa fa-circle me"></i>
+                                        </div>
+                                        <div class="message other-message float-right">
+                                            Well I am not sure. The rest of the team is not here yet.
+                                            Maybe in an hour or so? Have you faced any problems at the
+                                            last phase of the project?
+                                        </div>
+                                    </li>
+                                    <li id="sender" class="sender">
+                                        <div class="message-data">
+                                            <span class="message-data-time">10:10 AM, Today</span>
+                                            &nbsp; &nbsp;
+                                            <span class="message-data-name">Kola</span>
+                                            <i class="fa fa-circle me"></i>
+                                        </div>
+                                        <div class="message">
+                                            Hi Vincent, how are you? How is the project coming along?
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="message-data float-left">
+                                            <span class="message-data-name"><i class="fa fa-circle online"></i>
+                                                Vincent</span>
+                                            <span class="message-data-time">10:31 AM, Today</span>
+                                        </div>
+                                        <i class="fa fa-circle online"></i>
+                                        <i class="fa fa-circle online" style="color: #aed2a6;"></i>
+                                        <i class="fa fa-circle online" style="color: #dae9da;"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="chat-box__main-message">
+                                <form action="#" id="form">
+                                    <textarea name="message-to-send" id="message-to-send"
+                                        placeholder="Type your message" rows="7"></textarea>
+                                    <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+                                    <i class="fa fa-file-image-o"></i>
+                                    <input type="hidden" name="sender" value="<%= user.email  %>" id="sender" /><input
+                                        type="hidden" name="receiver" value="5f24057190f78f33f07a5365" id="to" />
+                                    <button class="btn right blue" id="send-btn" disabled>
+                                        Send
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="chat-box__online">
+                            <div class="search">
+                                <input type="text" placeholder="search" />
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <ul class="lists">
+                                <% friends.forEach((li) => {%>
+                                <li class="lists-item">
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_07.jpg"
+                                        alt="avatar" />
+                                    <div class="about">
+                                        <div class="name" id="receiver" data-receiver="<%= li.email %>">
+                                            <%= li.name %>
+                                        </div>
+                                        <div class="status">
+                                            <i class="fa fa-circle offline"></i> left 10 hours ago
+                                        </div>
+                                    </div>
+                                </li>
+                                <%})%>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<%- include('./partials/footer') %>

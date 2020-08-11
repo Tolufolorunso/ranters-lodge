@@ -1,5 +1,9 @@
 const registerForm = document.getElementById('register-form');
 const loginForm = document.getElementById('login-form');
+const alertBox = document.getElementById('alert-box');
+const showForm = document.getElementById('login-register');
+const loginLink = document.getElementById('login-link');
+const registerLink = document.getElementById('register-link');
 
 function eventListener() {
 	if (registerForm) {
@@ -9,7 +13,36 @@ function eventListener() {
 	if (loginForm) {
 		loginForm.addEventListener('submit', loginUser);
 	}
+
+	if (loginLink) {
+		loginLink.addEventListener('click', showLogin);
+	}
+	if (registerLink) {
+		registerLink.addEventListener('click', showRegister);
+	}
 }
+
+const showLogin = evt => {
+	registerForm.style.display = 'none';
+	console.log('login');
+	showForm.style.transform = 'translateY(0)';
+};
+const showRegister = evt => {
+	loginForm.style.display = 'none';
+	console.log('register');
+	showForm.style.transform = 'translateY(0)';
+};
+
+// @desc show alert
+const showAlertMessage = (message, className) => {
+	alertBox.classList.add('block');
+	alertBox.style.background = '#0eadf4';
+	alertBox.innerHTML = `<p>${message}</p>`;
+	setTimeout(() => {
+		alertBox.classList.remove('block');
+		alertBox.innerHTML = '';
+	}, 3000);
+};
 
 const loginUser = evt => {
 	evt.preventDefault();
@@ -35,16 +68,14 @@ const registerNewUser = evt => {
 		name: evt.target.name.value,
 		username: evt.target.username.value,
 		email: evt.target.email.value,
-		zip: evt.target.zip.value,
-		gender: evt.target.gender.value,
+		// gender: evt.target.gender.value,
 		password: evt.target.password.value,
-		passwordConfirm: evt.target.passwordConfirm.value,
-		role: 'admin'
+		passwordConfirm: evt.target.passwordConfirm.value
 	};
 	postData(body, 'POST', '/auth/register')
 		.then(data => {
 			if (data.status === 'success') {
-				console.log(data);
+				setTimeout(() => location.assign('/auth/login'), 1000);
 			} else {
 				console.log(data.error);
 			}

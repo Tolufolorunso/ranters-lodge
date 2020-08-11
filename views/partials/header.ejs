@@ -22,24 +22,24 @@
 
 <body>
 	<div class="navbar-fixed">
-		<nav class="nav nav-wrapper black">
+		<nav class="nav nav-wrapper">
 			<div class="container">
 				<div class="nav-wrapper">
-					<a href="#!" class="brand-logo left">Ranter</a>
+					<a href="/ranter/newsfeed" class="brand-logo left">Ranter</a>
 					<a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i
 							class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
-						<li><a href="#">Home</a></li>
+						<li><a href="/ranter/newsfeed">Home</a></li>
 						<li><a href="/ranter/newsfeed">NewsFeed</a></li>
 						<li><a href="#">Contact</a></li>
 						<% if(locals.user) { %>
 						<li id="logout"><a href="#">logout</a></li>
 						<% }else{ %>
 						<li>
-							<a href="#">login</a>
+							<a href="#" id="login-link">login</a>
 						</li>
 						<li>
-							<a href="#">Register</a>
+							<a href="#" id="register-link">Register</a>
 						</li>
 						<% } %>
 					</ul>
@@ -55,10 +55,10 @@
 		<li id="logout"><a href="#">logout</a></li>
 		<% }else{ %>
 		<li>
-			<a href="#">login</a>
+			<a href="/auth/login">login</a>
 		</li>
 		<li>
-			<a href="#">Register</a>
+			<a href="/auth/register">Register</a>
 		</li>
 		<% } %>
 	</ul>
