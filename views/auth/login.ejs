@@ -1,7 +1,15 @@
 <%- include('../partials/header') %>
-<form class="form-tag active" id="login-form">
+<div class="alert">
+    <div class="container">
+        <div class="alert-box" id="alert-box">
+            <p><%= message %></p>
+        </div>
+    </div>
+</div>
+<%= message %>
+<!-- <form class="form-tag active" id="login-form">
     <div class="form-group">
-        <input type="text" placeholder="Enter email" name="email" />
+        <input type="text" placeholder="Enter email" name="email" id="login-email" />
     </div>
     <div class="form-group">
         <input type="password" name="password" placeholder="Enter Password" />
@@ -10,6 +18,6 @@
     <div class="form-group form-tag__btn">
         <button type="submit" class="btn btn-login" id="login">Login</button>
     </div>
-</form>
+</form> -->
 
 <%- include('../partials/footer') %>

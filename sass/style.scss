@@ -2,10 +2,11 @@
 @import "components/navigation";
 @import "components/buttons";
 @import "components/form";
+@import "components/alert";
 // @import "components/modal";
 @import "layout/header";
 @import "pages/home";
 @import "pages/newsfeed";
-// @import "pages/profilepage";
-// @import "pages/message";
-// @import "helpers/utils";
+@import "pages/profilepage";
+@import "pages/message";
+@import "helpers/utils";

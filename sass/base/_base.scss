@@ -5,17 +5,23 @@ Author URI: http://tolufolorunso.herokuapp.com/
 /* @import url(http://fonts.googleapis.com/css?family=Open + Sans:400, 700, 600); */
 
 :root {
-	--primaryC: #0p;
+	--primaryC: gggg;
 }
 
 * {
 	margin: 0;
 	padding: 0;
+}
+
+*,
+*::before,
+*::after {
 	box-sizing: inherit;
 }
 
 html {
 	font-size: 62.5%;
+	box-sizing: border-box;
 	// scroll-behavior: smooth;
 }
 
@@ -23,9 +29,8 @@ body {
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;
 	line-height: 1.6;
-	color: #111;
-	box-sizing: border-box;
-	background: rgb(238, 238, 238);
+	color: #777;
+	background: #fff;
 }
 
 // font-family: 'Lato',
