@@ -1,15 +1,15 @@
 <div class="create-post mb-m">
-    <form action="/ranter/newsfeed" method="POST" class="form-tag" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col s7">
-                <div class="form-group text-image">
-                    <% if(typeof user.avatar === 'undefined') {%>
-                    <img src="/public/images/<%= user.gender === 'male' ? 'male' : 'woman' %>.jpg"
-                        alt="profile pic of tolu" class="broken-image circle responsive-img" />
-                    <%} else{%>
-                    <img src="http://localhost:4000/users/<%= user.id %>/avatar" alt="profile pic of tolu"
-                        class="broken-image circle responsive-img" />
-                    <%}%>
+	<form action="/ranter/newsfeed" method="POST" class="form-tag" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col s7">
+				<div class="form-group text-image">
+					<% if(typeof user.avatar === 'undefined') {%>
+					<img src="/public/images/<%= user.gender === 'male' ? 'male' : 'woman' %>.jpg"
+						alt="profile pic of tolu" class="broken-image circle responsive-img" />
+					<%} else{%>
+					<img src="/users/<%= user.id %>/avatar" alt="profile pic of tolu"
+						class="broken-image circle responsive-img" />
+					<%}%>
 					<textarea
 						name="body"
 						id="rant-message"
