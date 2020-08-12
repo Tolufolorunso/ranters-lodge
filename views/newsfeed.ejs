@@ -18,8 +18,8 @@
 									<img src="/public/images/<%= user.gender === 'male' ? 'male' : 'woman' %>.jpg"
 										alt="profile pic of tolu" class="broken-image circle responsive-img post-img" />
 									<%} else{%>
-									<img src="http://localhost:4000/users/<%= user.id %>/avatar"
-										alt="profile pic of tolu" class="broken-image circle responsive-img post-img" />
+									<img src="/users/<%= user.id %>/avatar" alt="profile pic of tolu"
+										class="broken-image circle responsive-img post-img" />
 									<%}%>
 								</div>
 								<div class="col l10 m9">
@@ -114,7 +114,7 @@
 									<img src="/public/images/<%= user.gender === 'male' ? 'male' : 'woman' %>.jpg"
 										alt="" class="broken-image circle responsive-img profile-image-s" />
 									<%}else{%>
-									<img src="http://localhost:4000/users/<%= user.id %>/avatar" alt=""
+									<img src="/users/<%= user.id %>/avatar" alt=""
 										class="broken-image circle responsive-img profile-image-s" />
 									<%}%>
 										<input

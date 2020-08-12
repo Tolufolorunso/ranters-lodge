@@ -51,7 +51,8 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 		password,
 		gender,
 		zip,
-		email
+		email,
+		bio: 'Welcome to ranter'
 	});
 
 	// create token
@@ -70,8 +71,6 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 // @access      public
 exports.postLoginForm = catchAsync(async (req, res, next) => {
 	const { password, email } = req.body;
-
-	console.log(password, email);
 
 	// validate user: email and password
 	if (!email || !password) {
@@ -143,7 +142,6 @@ exports.forgotpassword = catchAsync(async (req, res, next) => {
 		});
 		res.status(200).json({ status: 'success', data: 'Email sent' });
 	} catch (error) {
-		console.log(error);
 		user.resetPasswordToken = undefined;
 		user.resetPasswordExpire = undefined;
 		await user.save({ validateBeforeSave: false });

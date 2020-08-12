@@ -26,8 +26,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 		process.env.JWT_SECRET
 	);
 
-	console.log(decodedToken);
-
 	const currentUser = await User.findById(decodedToken.id);
 	if (!currentUser) {
 		return next(new AppError('The user doesnt exists', 401));
@@ -47,7 +45,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 // Grant access to specific roles
 exports.authorizeAdmin = (...roles) => {
 	return (req, res, next) => {
-		console.log('user: ', req.user);
 		if (!roles.includes(req.user.role)) {
 			return next(
 				new AppError('You do not have access to perform the operation!', 403)

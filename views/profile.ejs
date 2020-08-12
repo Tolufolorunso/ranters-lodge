@@ -10,11 +10,13 @@
                     <div class="card-image profile__card-image">
                     </div>
                     <div class="card-content profile__card-content">
+                        <div hidden class="spinner" id="spinner"></div>
+
                         <% if(typeof user.avatar === 'undefined') { %>
                         <img id="profile-pic" src="/public/images/<%= user.gender === 'male' ? 'male' : 'woman' %>.jpg"
                             alt="mary" class="broken-image circle responsive-img profile__img">
                         <% } else {%>
-                        <img id="profile-pic" src="http://localhost:4000/users/<%= user.id %>/avatar" alt="mary"
+                        <img id="profile-pic" src="/users/<%= user.id %>/avatar" alt="mary"
                             class="broken-image circle responsive-img profile__img">
                         <% } %>
 
@@ -34,20 +36,20 @@
                 <div class="profile__view center-align">
                     <h1>Your Profile</h1>
                     <div class="profile-edit">
-                        <form class="form-tag" id="form">
+                        <form class="form-tag" id="profile-form">
                             <div class="row">
                                 <div class="col m6 s12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Name</label>
-                                        <input placeholder="First name" disabled="" name="firstname" type="text"
-                                            value="<%= user.name %>" id="name">
+                                        <input placeholder="First name" disabled name="firstname" type="text"
+                                            value="<%= user.name %>" id="name" class="able">
                                     </div>
                                 </div>
                                 <div class="col m6 s12">
                                     <div class="form-group">
-                                        <label class="control-label">Email</label>
+                                        <label class="control-label" for="email">Email</label>
                                         <input placeholder="First name" disabled="" name="firstname" type="text"
-                                            value="<%= user.email %> ">
+                                            value="<%= user.email %> " id="email">
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +90,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="bio">Bio</label>
                                         <textarea name="Tolulope" id="bio" class="bio" cols="50" rows="50"
-                                            disabled=""><%= user.aboutme %></textarea>
+                                            disabled=""><%= user.bio %></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +98,7 @@
                             <div class="profile-edit-btns">
                                 <div class="form-group">
                                     <!-- <input type="submit" value="Update" class="btn blue" id="submitBtn"> -->
-                                    <button type="button" class="btn blue update" id="submitBtn">Update</button>
+                                    <button type="submit" class="btn blue update" id="submitBtn">Update</button>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn blue cancel" id="edit">Edit</button>
@@ -112,5 +114,4 @@
         </div>
     </div>
 </section>
-
 <%- include('./partials/footer') %>
