@@ -21,7 +21,12 @@
 </head>
 
 <body>
+	<input type="hidden" name="" value="<%= user.name %>" id="user-name">
+	<input type="hidden" name="" value="<%= user._id %> " id="user-id">
+	<input type="hidden" name="" value="<%= user.username %> " id="user-username">
+	<input type="hidden" name="" value="<%= user.username %> " id="senderudername">
 	<div class="navbar-fixed">
+		<input type="hidden" name="user" id="local-user" value="<%= locals.user.username  %>">
 		<nav class="nav nav-wrapper">
 			<div class="container">
 				<div class="nav-wrapper">

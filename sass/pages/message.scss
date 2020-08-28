@@ -15,6 +15,12 @@
             padding: 20px;
             border-bottom: 2px solid white;
 
+            .post-img {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+            }
+
             img {
                 padding-right: 10px;
             }
@@ -42,15 +48,15 @@
         &-history {
             padding: 30px 30px 20px;
             border-bottom: 2px solid white;
-            overflow-x: hidden;
-            height: 300px;
+            // height: 300px;
 
             ol,
             ul {
                 list-style: none;
                 display: flex;
                 flex-direction: column;
-                max-height: 200px;
+                height: 300px;
+                overflow-x: hidden;
             }
 
             .receiver {
@@ -153,26 +159,33 @@
         border-bottom-right-radius: 5px;
         overflow: auto;
 
+
+
         .search {
             padding: 20px;
             position: relative;
 
-            .fa-search {
-                top: 38px;
+            .search-icons {
+                width: 40px;
+                height: 40px;
+                top: 25px;
                 position: absolute;
-                right: 33px;
+                right: 25px;
                 font-size: 2rem;
-                color: #fff;
+                fill: #fff;
+                cursor: pointer;
             }
 
             input {
                 border-radius: 3px;
                 border: none;
                 padding: 10px;
+                padding-right: 30px;
                 color: white;
                 background: #6a6c75;
                 width: 90%;
                 font-size: 14px;
+                box-sizing: border-box;
 
                 &:focus {
                     border: none;
@@ -187,7 +200,19 @@
                 display: flex;
                 align-items: center;
                 padding-bottom: 20px;
+                cursor: pointer;
+
+                &:hover {
+                    background: rgba(87, 91, 102, 0.9);
+                }
             }
+
+            .post-img {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+            }
+
 
             .about {
                 margin-left: 10px;

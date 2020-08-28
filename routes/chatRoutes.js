@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const { getNewsFeed } = require('../controllers/newsfeedsController');
+const { getChat } = require('../controllers/chatController');
 const { protect } = require('../middlewares/auth');
 
-router.get('/', protect, getNewsFeed);
+router.post('/chat', protect, getChat);
 
 module.exports = router;

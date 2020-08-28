@@ -118,7 +118,7 @@ const profile = (function (fetchApi, helper) {
 		postData(body, 'PUT', '/users/me')
 			.then(data => {
 				if (data.status === 'success') {
-					updateUI(data);
+					// updateUI(data);
 					cancelUpdateState(evt);
 					showAlertMessage('Profile updated', 'green');
 				} else {
@@ -134,6 +134,7 @@ const profile = (function (fetchApi, helper) {
 		}
 	};
 })(fetchApi, helper);
+
 if (profilePage) {
 	profile.publicApi();
 }

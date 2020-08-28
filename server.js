@@ -1,4 +1,5 @@
 const express = require('express');
+const http = require('http');
 const dotenv = require('dotenv');
 const path = require('path');
 const sass = require('node-sass-middleware');
@@ -8,12 +9,17 @@ const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
+const socketio = require('socket.io');
+const User = require('./models/UserModels');
+const Message = require('./models/MessageModels');
 
 const respondInternalError = require('./middlewares/error');
 
-const newsfeedRoutes = require('./routes/newsfeedsRoutes');
 const auth = require('./routes/authRoutes');
-const usersRoutes = require('./routes/userRoutes');
+const profileRoutes = require('./routes/profileRoutes');
+const postRoutes = require('./routes/postRoutes');
+const friendRoutes = require('./routes/friendRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 
 //load env var
 dotenv.config({
@@ -23,6 +29,8 @@ dotenv.config({
 console.log(process.env.NODE_ENV);
 
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 // Middlewares
 // app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -62,22 +70,62 @@ app.use(
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/auth', auth);
-app.use('/users', usersRoutes);
-app.use('/ranter/newsfeed', newsfeedRoutes);
+app.use('/api/v1/auth', auth);
+app.use('/api/v1/profile', profileRoutes);
+app.use('/api/v1/posts', postRoutes);
+app.use('/api/v1/users', friendRoutes);
+app.use('/api/v1/users', chatRoutes);
 
 app.get('/', (req, res) => {
-	if (req.cookies.jwt) {
-		return res.redirect('/ranter/newsfeed');
-	}
-	res.render('index');
+	res.status(200).json({
+		status: 'success',
+		message: 'Thank God'
+	});
 });
 
 app.use(respondInternalError);
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(
+var users = [];
+// socketIo(io);
+io.on('connection', socket => {
+	console.log('new connection', socket.id);
+	socket.on('disconnect', () => {
+		socket.broadcast.emit('message', 'is offline');
+	});
+
+	socket.on('user_connected', username => {
+		console.log(username);
+		users[username] = socket.id;
+		io.emit('user_connected', username);
+	});
+
+	socket.on('send_message', async function (data) {
+		console.log(data);
+		const receiver = await User.findOne({ username: data.receiver });
+		const sender = await User.findOne({ username: data.sender });
+		const message = await Message.create({
+			message: data.message,
+			users: [receiver._id, sender._id],
+			sender: sender._id
+		});
+
+		const body = {
+			message: data.message,
+			sender: data.sender,
+			senderId: sender._id,
+			receiver: data.receiver,
+			senderFullname: sender.name
+		};
+
+		const socketId = users[data.receiver];
+		socket.to(socketId).emit('message_received', body);
+	});
+	console.log(users);
+});
+
+server.listen(
 	PORT,
 	console.log(
 		`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.green.bold
