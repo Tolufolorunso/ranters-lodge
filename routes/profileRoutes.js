@@ -4,15 +4,34 @@ const multer = require('multer');
 
 const {
 	getMe,
+	getAllProfile,
+	getUser,
+	deleteUser,
 	getMessage,
-	updateUser,
+	updateProfile,
 	updateAvatar,
 	getAvatar
-} = require('../controllers/userController');
+} = require('../controllers/profileController');
 const { protect } = require('../middlewares/auth');
+const { check } = require('express-validator');
 
 router.get('/me', protect, getMe);
-router.put('/me', protect, updateUser);
+router.put(
+	'/',
+	[
+		check('name', 'Name is required').not().isEmpty(),
+		check('username', 'Username is required')
+			.isLength({ min: 4 })
+			.not()
+			.isEmpty(),
+		check('zip', 'Invalid Zip code').isLength({ min: 3 }).isNumeric()
+	],
+	protect,
+	updateProfile
+);
+router.get('/', getAllProfile);
+router.get('/user/:userId', getUser);
+router.delete('/', protect, deleteUser);
 router.get('/message', protect, getMessage);
 router.get('/:id/avatar', getAvatar);
 

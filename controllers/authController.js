@@ -3,33 +3,33 @@ const User = require('../models/UserModels');
 const AppError = require('../utils/errorApp');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const gravatar = require('gravatar');
+const { validationResult } = require('express-validator');
 
 const sendEmail = require('../utils/sendMail');
-
-const { check } = require('express-validator');
 
 // @desc        Get register form.
 // @route       GET /auth/register
 // @access      public
-exports.getRegisterForm = catchAsync(async (req, res, next) => {
-	if (req.cookies.jwt) {
-		return res.redirect('/ranter/newsfeed');
-	}
-	res.status(200).render('auth/register', { errorsValidation: [] });
-});
+// exports.getRegisterForm = catchAsync(async (req, res, next) => {
+// 	if (req.cookies.jwt) {
+// 		return res.redirect('/ranter/newsfeed');
+// 	}
+// 	res.status(200).render('auth/register', { errorsValidation: [] });
+// });
 
 // @desc        Get Login form.
 // @route       GET /auth/login
 // @access      public
-exports.getLoginForm = catchAsync(async (req, res, next) => {
-	if (req.cookies.jwt) {
-		return res.redirect('/ranter/newsfeed');
-	}
-	res.status(200).render('auth/login', {
-		errorsValidation: [],
-		message: req.flash('info')
-	});
-});
+// exports.getLoginForm = catchAsync(async (req, res, next) => {
+// 	if (req.cookies.jwt) {
+// 		return res.redirect('/ranter/newsfeed');
+// 	}
+// 	res.status(200).render('auth/login', {
+// 		errorsValidation: [],
+// 		message: req.flash('info')
+// 	});
+// });
 
 // @desc        Post register form.
 // @route       Post /auth/register
@@ -45,9 +45,32 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 		email
 	} = req.body;
 
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		console.log(errors.array());
+		// To retrive all the errors for the array of errors
+		const msg = errors.array().map(i => {
+			return i.msg;
+		});
+
+		return res.status(422).json({
+			status: 'fail',
+			errorMessage: msg
+		});
+	}
+
+	// Add default avatar
+	const avatar = gravatar.url(email, {
+		s: '200',
+		r: 'pg',
+		d: 'mm'
+	});
+
 	const user = await User.create({
 		name,
 		username,
+		avatar,
 		password,
 		gender,
 		zip,
@@ -57,9 +80,6 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 
 	// create token
 	// const token = user.getSignedJWTToken();
-
-	req.flash('info', `Registration is successful ${username}`);
-	req.flash('email', email);
 	res.status(201).json({
 		status: 'success',
 		user
@@ -77,17 +97,31 @@ exports.postLoginForm = catchAsync(async (req, res, next) => {
 		return next(new AppError('Please provide an email and password', 400));
 	}
 
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		console.log(errors.array());
+		const msg = errors.array().map(i => {
+			return i.msg;
+		});
+
+		return res.status(422).json({
+			status: 'fail',
+			errorMessage: msg
+		});
+	}
+
 	//Check for user in the database
 	const user = await User.findOne({ email }).select('+password');
 	if (!user) {
-		return next(new AppError('Invalid credentials', 401));
+		return next(new AppError('Password or email is incorrect', 401));
 	}
 
 	//Check if password matches
 	const isMatch = await user.matchPassword(password);
 
 	if (!isMatch) {
-		return next(new AppError('Invalid credentials', 401));
+		return next(new AppError('Password or email is incorrect', 401));
 	}
 
 	//create token
@@ -115,10 +149,20 @@ exports.postLoginForm = catchAsync(async (req, res, next) => {
 // @route       POST /auth/forgotpassword
 // @access      public
 exports.forgotpassword = catchAsync(async (req, res, next) => {
-	const user = await User.findOne({ email: req.body.email });
-	if (!user) {
-		return next(new AppError('No user found', 404));
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		console.log(errors.array());
+		const msg = errors.array().map(i => {
+			return i.msg;
+		});
+
+		return res.status(422).json({
+			status: 'fail',
+			errorMessage: msg
+		});
 	}
+	const user = await User.findOne({ email: req.body.email });
 
 	//Get reset token
 	const resetToken = user.getResetPasswordToken();

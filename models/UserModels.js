@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { type } = require('os');
 
 const UserSchema = new mongoose.Schema({
 	name: {
@@ -10,11 +11,11 @@ const UserSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		unique: true,
-		required: [true, 'Please add a Username']
+		required: true
 	},
 	email: {
 		type: String,
-		required: [true, 'Please add an email'],
+		required: true,
 		unique: true,
 		match: [
 			/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -28,6 +29,9 @@ const UserSchema = new mongoose.Schema({
 		type: String
 	},
 	avatar: {
+		type: String
+	},
+	image: {
 		type: Buffer
 	},
 	role: {
@@ -39,6 +43,27 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		require: true
 	},
+	sentRequest: [{ username: { type: String, default: '' } }],
+	request: [
+		{
+			userId: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'User'
+			},
+			username: {
+				type: String,
+				default: ''
+			}
+		}
+	],
+	friendsList: [
+		{
+			friendId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+			username: { type: String, default: '' },
+			name: { type: String, default: '' }
+		}
+	],
+	totalRequest: { type: Number, default: 0 },
 	zip: {
 		type: Number,
 		require: true
