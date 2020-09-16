@@ -27,9 +27,16 @@ const sendEmail = require('../utils/sendMail');
 // 	}
 // 	res.status(200).render('auth/login', {
 // 		errorsValidation: [],
-// 		message: req.flash('info')
 // 	});
 // });
+
+// @desc        Get Logged in user.
+// @route       GET /auth
+// @access      Private
+exports.getLoggedInUser = catchAsync(async (req, res, next) => {
+	const user = await User.findById(req.user.id).select('-password');
+	res.json(user);
+});
 
 // @desc        Post register form.
 // @route       Post /auth/register
@@ -45,18 +52,19 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 		email
 	} = req.body;
 
+	console.log(req.body);
+
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		console.log(errors.array());
 		// To retrive all the errors for the array of errors
-		const msg = errors.array().map(i => {
-			return i.msg;
-		});
+		// const msg = errors.array().map(i => {
+		// 	return i.msg;
+		// });
 
 		return res.status(422).json({
 			status: 'fail',
-			errorMessage: msg
+			errorMessage: errors.array()
 		});
 	}
 
@@ -72,18 +80,16 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 		username,
 		avatar,
 		password,
-		gender,
+		gender: 'male',
 		zip,
 		email,
 		bio: 'Welcome to ranter'
 	});
 
 	// create token
-	// const token = user.getSignedJWTToken();
-	res.status(201).json({
-		status: 'success',
-		user
-	});
+	const token = user.getSignedJWTToken();
+	console.log(token);
+	res.status(201).send({ token });
 });
 
 // @desc        Post Login form.
@@ -140,7 +146,6 @@ exports.postLoginForm = catchAsync(async (req, res, next) => {
 
 	res.cookie('jwt', token, cookieOptions).status(200).json({
 		status: 'success',
-		user,
 		token
 	});
 });

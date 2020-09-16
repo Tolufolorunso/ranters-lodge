@@ -1,6 +1,7 @@
 const express = require('express');
 const { body, check } = require('express-validator');
 const User = require('../models/UserModels');
+const { protect } = require('../middlewares/auth');
 
 const router = express.Router();
 
@@ -9,8 +10,11 @@ const {
 	postLoginForm,
 	getMe,
 	forgotpassword,
-	resetPassword
+	resetPassword,
+	getLoggedInUser
 } = require('../controllers/authController');
+
+router.get('/', protect, getLoggedInUser);
 
 router.post(
 	'/register',
@@ -28,7 +32,6 @@ router.post(
 			}),
 		body('username', 'Username is in valid').isLength({ min: 4 }),
 		body('name', 'Name is required').isLength({ min: 4 }),
-		body('zip', 'Invalid Zip code').isLength({ min: 3 }).isNumeric(),
 		body(
 			'password',
 			'Please enter a password with only number and text and at least 3 characters.'

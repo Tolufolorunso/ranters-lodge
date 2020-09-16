@@ -93,11 +93,11 @@ UserSchema.pre('save', async function (next) {
 });
 
 //Sign JWT and return
-// UserSchema.methods.getSignedJWTToken = function () {
-// 	return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-// 		expiresIn: process.env.JWT_EXPIRES_IN
-// 	});
-// };
+UserSchema.methods.getSignedJWTToken = function () {
+	return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+		expiresIn: process.env.JWT_EXPIRES_IN
+	});
+};
 
 //Compare user password with the one in the database
 UserSchema.methods.matchPassword = async function (enteredPassword) {
