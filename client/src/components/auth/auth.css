@@ -1,0 +1,30 @@
+/* Auth */
+.auth-form {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+    color: #fff;
+    padding: 30px;
+    margin: 50px auto 50px auto;
+    max-width: 450px;
+    width: 100%;
+    border-radius: 3px;
+}
+
+.auth-form h5 {
+    margin-bottom: 30px;
+}
+
+.auth-form input {
+    color: #fff;
+}
+
+/* Login */
+.remember-forgetPassword {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forget-password a {
+    text-decoration: underline;
+    color: #ec407a;
+}
