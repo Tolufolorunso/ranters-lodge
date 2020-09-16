@@ -2,13 +2,11 @@ const express = require('express');
 const http = require('http');
 const dotenv = require('dotenv');
 const path = require('path');
-const sass = require('node-sass-middleware');
 const morgan = require('morgan');
 const colors = require('colors');
 const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const flash = require('connect-flash');
 const socketio = require('socket.io');
 const User = require('./models/UserModels');
 const Message = require('./models/MessageModels');
@@ -42,7 +40,6 @@ app.use(
 		saveUninitialized: false
 	})
 );
-app.use(flash());
 
 // Body parser
 app.use(express.json());
@@ -53,22 +50,6 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
 }
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-app.use(
-	sass({
-		src: __dirname + '/sass',
-		dest: __dirname + '/public/stylesheets/',
-		// debug: true,
-		outputStyle: 'compressed',
-		prefix: '/stylesheets'
-	})
-);
-app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/profile', profileRoutes);
