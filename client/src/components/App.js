@@ -8,6 +8,7 @@ import ForgetPassword from './auth/ForgetPassword';
 
 import './App.css';
 import Profile from './profile/Profile';
+import Message from './message/Message';
 
 function App() {
 	return (
@@ -21,6 +22,7 @@ function App() {
 					<Route path="/users/forgetpassword" component={ForgetPassword} />
 					<Route path="/ranter/newsfeed" component={Newsfeed} />
 					<Route path="/users/me" component={Profile} />
+					<Route exact path="/users/message" component={Message} />
 				</Switch>
 			</div>
 		</Router>
