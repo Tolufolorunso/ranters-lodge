@@ -9,7 +9,7 @@ const SignedInLinks = () => {
 				<NavLink to="/ranter/newsfeed">NewsFeed</NavLink>
 			</li>
 			<li>
-				<NavLink to="/contact">Contact</NavLink>
+				<NavLink to="/users/message">Message</NavLink>
 			</li>
 			<li>
 				<NavLink to="/">logout</NavLink>

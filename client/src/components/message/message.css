@@ -1,0 +1,221 @@
+.chat-box {
+    display: flex;
+    max-height: 710px;
+}
+
+.chat-box__main {
+    background: #f2f5f8;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color: #434651;
+}
+
+.chat-box__main-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid white;
+}
+
+.chat-box__main-header img {
+    padding-right: 10px;
+}
+
+.chat-box__main-header about {
+    margin-right: auto;
+}
+
+.chat-box__main-header .chat-with {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.chat-box__main-header .chat-num-messages {
+    color: #92959E;
+    font-size: 1.3rem;
+}
+
+
+
+.chat-box__main-header .fa-star {
+    color: #D8DADF;
+    font-size: 2rem;
+}
+
+.chat-box__main-history {
+    padding: 10px 30px 20px;
+    border-bottom: 2px solid white;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 450px;
+}
+
+.chat-box__main-history ol,
+.chat-box__main-history ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 450px;
+}
+
+.chat-box__main-history .message {
+    color: white;
+    padding: 5px 10px;
+    line-height: 1.4rem;
+    font-size: 0.8rem;
+    border-radius: 7px;
+    width: 80%;
+    margin-bottom: 15px;
+}
+
+.chat-box__main-history .receiver {
+    position: relative;
+    display: inline-block;
+}
+
+.chat-box__main-history .receiver::before {
+    left: 30px;
+    top: 5px;
+    border: solid transparent;
+    content: '';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #1194D0;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.chat-box__main-history .receiver .message-data {
+    transform: translate(0, -9px);
+}
+
+.chat-box__main-history .receiver .message {
+    background: #1194D0;
+}
+
+.chat-box__main-history .sender {
+    display: inline-block;
+    transform: translateX(82px);
+}
+
+.chat-box__main-history .sender::before {
+    bottom: 100%;
+    right: 100px;
+    top: 15px;
+    border: solid transparent;
+    content: '';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #8DC63F;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.chat-box__main-history .sender .message-data {
+    /* transform: translate(245px, -9px); */
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.chat-box__main-history .sender .message {
+    background: #8DC63F;
+    display: inline-block;
+}
+
+.chat-box__main-history .sender .message-data-time {
+    margin-right: 65px;
+}
+
+.chat-box__main-message {
+    padding: 10px;
+}
+
+.chat-box__main-message textarea {
+    width: 100%;
+    border: none;
+    padding: 10px 20px;
+    font: 14px/22px "Lato", Arial, sans-serif;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    resize: none;
+    background: #fff;
+    height: 50px;
+}
+
+.chat-box__main-message textarea:focus {
+    outline: none;
+    border: 1px solid #8DC63F;
+}
+
+.chat-box__online {
+    background: #434753;
+    width: 45%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.chat-box__online .search {
+    padding: 20px 20px 0;
+    position: relative;
+}
+
+.chat-box__online .fa-search {
+    top: 38px;
+    position: absolute;
+    right: 33px;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.chat-box__online .search input {
+    border-radius: 3px;
+    border: none;
+    padding: 10px;
+    color: white;
+    background: #6A6C75;
+    width: 90%;
+    font-size: 14px;
+}
+
+.chat-box__online .search input:focus {
+    border: none;
+}
+
+.chat-box__online .lists {
+    padding: 10px 20px 0 20px;
+    height: 560px;
+    overflow-y: auto;
+    border-top: 1px solid #ec407a;
+}
+
+.chat-box__online .list-item {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.chat-box__online .list-item .about {
+    margin-left: 10px;
+}
+
+.chat-box__online .list-item .about .name {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.chat-box__online .list-item .about .status {
+    color: #92959e;
+}
+
+.chat-box__online .list-item .about .online {
+    color: #86BB71;
+}
+
+.chat-box__online .list-item .about .offline {
+    color: #E38968;
+}

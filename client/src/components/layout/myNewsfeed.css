@@ -38,9 +38,7 @@
 
 .postContent img {
     padding: 1px;
-    border-top-left-radius: 2px solid #8dc63f;
-    border-top-right-radius: 2px solid #8dc63f;
-    border: 1px solid #8dc63f;
+    border: 1px solid #F6A0BD;
 }
 
 .postContent__detail {
@@ -52,7 +50,7 @@
 
 .postContent__img {
     border-radius: 50%;
-    border: 5px solid #8dc63f;
+    border: 5px solid #F6A0BD;
     width: 70px;
     height: 70px;
     display: flex;
