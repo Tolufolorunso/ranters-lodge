@@ -5,3 +5,27 @@ textarea.materialize-textarea:focus:not([readonly]) {
   border-color: #ec407a;
   box-shadow: none;
 }
+
+.mt-b {
+  margin-top: 100px;
+}
+
+.mt-m {
+  margin-top: 60px;
+}
+
+.mt-s {
+  margin-top: 40px;
+}
+
+.mb-b {
+  margin-bottom: 60px;
+}
+
+.mb-m {
+  margin-bottom: 40px;
+}
+
+.mb-s {
+  margin-bottom: 20px;
+}
