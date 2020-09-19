@@ -6,17 +6,15 @@ import SignedOutLinks from './SignedOutLinks';
 
 const Navbar = () => {
 	return (
-		<div>
-			<nav className="nav-wrapper grey darken-3">
-				<div className="container">
-					<Link to="/" className="brand-logo">
-						Ranter
-					</Link>
-					<SignedInLinks />
-					<SignedOutLinks />
-				</div>
-			</nav>
-		</div>
+		<nav className="nav-wrapper grey darken-3">
+			<div className="container">
+				<Link to="/" className="brand-logo">
+					Ranter
+				</Link>
+				<SignedInLinks />
+				<SignedOutLinks />
+			</div>
+		</nav>
 	);
 };
 
