@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import MyNewsfeed from '../layout/MyNewsfeed';
 import ProfileCard from '../layout/ProfileCard';
 import CreatePost from '../pages/newsfeed/CreatePost';
@@ -6,8 +6,15 @@ import './message.css';
 import MessageList from './MessageList';
 import FriendLists from './FriendLists';
 import SendMessage from './SendMessage';
+import AuthContext from '../../context/auth/authContext';
 
 const Message = () => {
+	const { loadUser } = useContext(AuthContext);
+
+	useEffect(() => {
+		loadUser();
+		// eslint-disable-next-line
+	}, []);
 	return (
 		<section className="newsfeed">
 			<div className="container">

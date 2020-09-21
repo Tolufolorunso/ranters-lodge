@@ -32,10 +32,7 @@ router.post(
 			}),
 		body('username', 'Username is in valid').isLength({ min: 4 }),
 		body('name', 'Name is required').isLength({ min: 4 }),
-		body(
-			'password',
-			'Please enter a password with only number and text and at least 3 characters.'
-		)
+		body('password', 'Please enter valid password')
 			.isLength({ min: 3 })
 			.isAlphanumeric(),
 		body('passwordConfirm').custom((value, { req }) => {
@@ -56,14 +53,11 @@ router.post(
 			.custom((value, { req }) => {
 				return User.findOne({ email: value }).then(user => {
 					if (!user) {
-						return Promise.reject('Password or email is incorrect');
+						return Promise.reject('Password or email is incorrect.');
 					}
 				});
 			}),
-		body(
-			'password',
-			'Please enter a password with only number and text and at least 3 characters.'
-		)
+		body('password', 'Password or email is incorrect')
 			.isLength({ min: 3 })
 			.isAlphanumeric()
 	],

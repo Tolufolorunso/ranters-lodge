@@ -18,10 +18,6 @@ const SignedInLinks = () => {
 		// eslint-disable-next-line
 	}, []);
 
-	// const handleClick = () => {
-	// 	console.log('click');
-	// };
-
 	return (
 		<>
 			<ul className="right hide-on-med-and-down">

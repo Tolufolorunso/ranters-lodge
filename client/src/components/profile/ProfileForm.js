@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ProfileForm = () => {
+const ProfileForm = props => {
+	const {
+		username: usernameFromServer,
+		name: nameFromServer,
+		zip: zipFromServer,
+		bio: bioFromServer,
+		gender: genderFromServer
+	} = props.userData;
+
 	const [formData, setFormData] = useState({
 		firstname: '',
 		username: '',
@@ -10,6 +18,18 @@ const ProfileForm = () => {
 	});
 
 	const { username, firstname, zip, gender, bio } = formData;
+
+	console.log(props);
+
+	useEffect(() => {
+		setFormData({
+			firstname: nameFromServer || 'firstname',
+			zip: zipFromServer || 'zip Code',
+			username: usernameFromServer || 'username',
+			gender: genderFromServer || 'Gender',
+			bio: bioFromServer
+		});
+	}, []);
 
 	const handleChange = evt => {
 		setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -24,7 +44,6 @@ const ProfileForm = () => {
 			<div className="row">
 				<div className="col m6 s12">
 					<div className="input-field">
-						<label htmlFor="username">Username</label>
 						<input
 							type="text"
 							disabled=""
@@ -36,12 +55,12 @@ const ProfileForm = () => {
 				</div>
 				<div className="col m6 s12">
 					<div className="input-field">
-						<label htmlFor="firstname">Firstname</label>
 						<input
 							type="text"
 							disabled=""
 							name="firstname"
 							value={firstname}
+							placeholder="name"
 							onChange={handleChange}
 						/>
 					</div>
@@ -50,7 +69,6 @@ const ProfileForm = () => {
 			<div className="row">
 				<div className="col m6 s12">
 					<div className="input-field">
-						<label htmlFor="zip">Zip</label>
 						<input
 							type="text"
 							disabled=""
@@ -62,7 +80,6 @@ const ProfileForm = () => {
 				</div>
 				<div className="col m6 s12">
 					<div className="input-field">
-						<label htmlFor="gender">Gender</label>
 						<input
 							type="text"
 							disabled=""
@@ -76,7 +93,6 @@ const ProfileForm = () => {
 			<div className="row">
 				<div className="col l12">
 					<div className="input-field">
-						<label htmlFor="bio">Bio</label>
 						<textarea
 							name="Tolulope"
 							id="bio"

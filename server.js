@@ -6,8 +6,10 @@ const morgan = require('morgan');
 const colors = require('colors');
 const connectDB = require('./config/db');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const session = require('express-session');
 const socketio = require('socket.io');
+const cors = require('cors');
 const User = require('./models/UserModels');
 const Message = require('./models/MessageModels');
 
@@ -24,28 +26,28 @@ dotenv.config({
 	path: './config/config.env'
 });
 
-console.log(process.env.NODE_ENV);
-
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 // Middlewares
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(
-	session({
-		secret: process.env.SESSION_SECRET,
-		cookie: { maxAge: 60000 },
-		resave: false,
-		saveUninitialized: false
-	})
-);
+// app.use(
+// 	session({
+// 		secret: process.env.SESSION_SECRET,
+// 		cookie: { maxAge: 60000 },
+// 		resave: false,
+// 		saveUninitialized: false
+// 	})
+// );
 
 // Body parser
-app.use(express.json());
+app.use(express.json({ extended: true }));
 
 // Cookie parser
-app.use(cookieParser());
+// app.use(cookieParser());
 
 if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
