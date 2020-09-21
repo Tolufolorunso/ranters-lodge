@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import AuthContext from '../../../context/auth/authContext';
 
 const NavDropdown = () => {
+	const authContext = useContext(AuthContext);
+
+	const onLogOut = () => {
+		authContext.logOut();
+	};
 	return (
 		<ul
 			id="dropdown1"
@@ -19,9 +25,9 @@ const NavDropdown = () => {
 				</NavLink>
 			</li>
 			<li>
-				<NavLink to="/" className="pink-text">
+				<a href="/#!" className="pink-text" onClick={onLogOut}>
 					logout
-				</NavLink>
+				</a>
 			</li>
 		</ul>
 	);

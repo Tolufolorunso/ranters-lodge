@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import MyNewsfeed from '../../layout/MyNewsfeed';
 import ProfileCard from '../../layout/ProfileCard';
 import CreatePost from './CreatePost';
 import PostContent from './PostContent';
 import './newsfeed.css';
+import AuthContext from '../../../context/auth/authContext';
 
 const Newsfeed = () => {
+	const { loadUser } = useContext(AuthContext);
+
+	useEffect(() => {
+		loadUser();
+		// eslint-disable-next-line
+	}, []);
 	return (
 		<section className="newsfeed">
 			<div className="container">

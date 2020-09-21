@@ -98,6 +98,8 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 exports.postLoginForm = catchAsync(async (req, res, next) => {
 	const { password, email } = req.body;
 
+	console.log(req.body);
+
 	// validate user: email and password
 	if (!email || !password) {
 		return next(new AppError('Please provide an email and password', 400));
@@ -106,14 +108,14 @@ exports.postLoginForm = catchAsync(async (req, res, next) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		console.log(errors.array());
 		const msg = errors.array().map(i => {
 			return i.msg;
 		});
 
+		console.log(msg);
 		return res.status(422).json({
 			status: 'fail',
-			errorMessage: msg
+			errorMessage: msg[0]
 		});
 	}
 

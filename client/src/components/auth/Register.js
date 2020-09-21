@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './auth.css';
 
-const Register = () => {
-	const [formData, setFormData] = useState({
+import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/authContext';
+
+const Register = props => {
+	const alertContext = useContext(AlertContext);
+	const authContext = useContext(AuthContext);
+	const { setAlert } = alertContext;
+	const { register, error, isAuthenticated, loadUser } = authContext;
+
+	const [user, setUser] = useState({
 		email: '',
 		password: '',
 		passwordConfirm: '',
@@ -11,15 +19,32 @@ const Register = () => {
 		name: ''
 	});
 
-	const { email, name, username, password, passwordConfirm } = formData;
+	useEffect(() => {
+		loadUser();
+		if (isAuthenticated) {
+			props.history.push('/ranter/newsfeed');
+		}
+		if (error) {
+			console.log(error);
+		}
+		// eslint-disable-next-line
+	}, [error, isAuthenticated, props.history]);
+
+	const { email, name, username, password, passwordConfirm } = user;
 
 	const handleChange = evt => {
-		setFormData({ ...formData, [evt.target.name]: evt.target.value });
+		setUser({ ...user, [evt.target.name]: evt.target.value });
 	};
 	const handleSubmit = evt => {
 		evt.preventDefault();
 
-		console.log(formData);
+		if (name === '' || email === '' || password === '') {
+			setAlert('Please enter all fields', 'danger');
+		} else if (password !== passwordConfirm) {
+			setAlert('Password not match', 'danger');
+		} else {
+			register({ email, name, username, password, passwordConfirm });
+		}
 	};
 
 	return (
@@ -73,8 +98,9 @@ const Register = () => {
 					<button className="btn pink lighten-1 z-depth-0">Register</button>
 				</div>
 				<p>
+					Already have an account?{' '}
 					<Link to="/users/login" className="pink-text">
-						Already register?
+						Sign In
 					</Link>
 				</p>
 			</form>

@@ -1,8 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/authContext';
 import './auth.css';
 
-const Login = () => {
+const Login = props => {
+	const alertContext = useContext(AlertContext);
+	const authContext = useContext(AuthContext);
+	const { setAlert } = alertContext;
+	const { login, error, clearErrors, isAuthenticated, loadUser } = authContext;
+
+	useEffect(() => {
+		loadUser();
+		if (isAuthenticated) {
+			props.history.push('/ranter/newsfeed');
+		}
+		if (error) {
+			console.log(error);
+			clearErrors();
+		}
+		// eslint-disable-next-line
+	}, [error, isAuthenticated, props.history]);
+
 	const [formData, setFormData] = useState({
 		email: '',
 		password: ''
@@ -15,7 +34,11 @@ const Login = () => {
 	};
 	const handleSubmit = evt => {
 		evt.preventDefault();
-		console.log(formData);
+		if (email === '' || password === '') {
+			setAlert('Please enter all fields', 'danger');
+		} else {
+			login(formData);
+		}
 	};
 
 	return (
@@ -60,8 +83,9 @@ const Login = () => {
 					</div>
 				</div>
 				<p>
+					Don't have an account?{' '}
 					<Link to="/users/register" className="pink-text">
-						Not a member
+						Sign Up
 					</Link>
 				</p>
 			</form>
