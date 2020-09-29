@@ -12,6 +12,8 @@ const socketio = require('socket.io');
 const cors = require('cors');
 const User = require('./models/UserModels');
 const Message = require('./models/MessageModels');
+const fileUpload = require('express-fileupload');
+const cloudinary = require('cloudinary').v2;
 
 const respondInternalError = require('./middlewares/error');
 
@@ -31,8 +33,9 @@ const server = http.createServer(app);
 const io = socketio(server);
 // Middlewares
 app.use(cors());
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(
 // 	session({
@@ -45,6 +48,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Body parser
 app.use(express.json({ extended: true }));
+
+app.use(
+	fileUpload({
+		useTempFiles: true,
+		tempFilesDir: '/tmp/'
+	})
+);
+
+cloudinary.config({
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.API_KEY,
+	api_secret: process.env.API_SECRET
+});
 
 // Cookie parser
 // app.use(cookieParser());

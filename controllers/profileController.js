@@ -1,8 +1,8 @@
 const catchAsync = require('../middlewares/catchAysnc');
 const User = require('../models/UserModels');
 const AppError = require('../utils/errorApp');
-const sharp = require('sharp');
-const { validationResult } = require('express-validator');
+const cloudinary = require('cloudinary').v2;
+const { validationResult, Result } = require('express-validator');
 
 // @desc        Get my detail(profile).
 // @route       GET /profile/me
@@ -14,9 +14,7 @@ exports.getMe = catchAsync(async (req, res, next) => {
 	}
 	res.status(200).json({
 		status: 'success',
-		data: {
-			user
-		}
+		data: user
 	});
 });
 
@@ -72,9 +70,10 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 // @route       PUT /profile
 // @access      private
 exports.updateProfile = catchAsync(async (req, res, next) => {
+	console.log('line 80', req.body.username);
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		console.log(errors.array());
+		console.log('line 83', errors.array());
 		// To retrive all the errors for the array of errors
 		const msg = errors.array().map(i => {
 			return i.msg;
@@ -84,6 +83,7 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
 			errorMessage: msg
 		});
 	}
+
 	if (req.body.username !== req.user.username) {
 		const usernameExists = await User.findOne({ username: req.body.username });
 		if (usernameExists) {
@@ -99,9 +99,9 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
 	res.status(200).json({ status: 'success', user });
 });
 
-// // @desc        Update user detail(profile).
-// // @route       PUT /users/me
-// // @access      private
+// @desc        Update user detail(profile).
+// @route       PUT /users/me
+// @access      private
 // exports.deleteUser = catchAsync(async (req, res, next) => {
 // 	if (req.body.username !== req.user.username) {
 // 		const usernameExists = await User.findOne({ username: req.body.username });
@@ -121,22 +121,43 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
 // @desc        Change user avatar(profile).
 // @route       PATCH /users/me/avatar
 // @access      private
-exports.updateAvatar = catchAsync(async (req, res) => {
-	const buffer = await sharp(req.file.buffer).resize(150, 200).png().toBuffer();
-	await User.findByIdAndUpdate(req.user.id, {
-		avatar: buffer
+exports.updateAvatar = catchAsync(async (req, res, next) => {
+	const file = req.files.avatar;
+	console.log('line 133', file);
+
+	// const buffer = await sharp(file).resize(150, 200).png();
+	// console.log(buffer);
+
+	const image = await cloudinary.uploader.upload(file.tempFilePath, {
+		width: 100,
+		height: 100,
+		crop: 'fill',
+		gravity: 'face'
 	});
-	const user = await User.findById(req.user._id);
-	res.send(user);
+
+	console.log('working', image);
+
+	const imageUrl = image.url.substr(5);
+
+	console.log('working', imageUrl);
+
+	await User.findByIdAndUpdate(req.user.id, {
+		avatar: imageUrl
+	});
+	res.status(200).json({ status: 'success', imageUrl });
 });
 
 // @desc        Update user profile avatar
 // @route       GET users/:Id/avatar
 // @access      Private
-exports.getAvatar = catchAsync(async (req, res) => {
-	const user = await User.findById(req.params.id);
-	res.set('Content-Type', 'image/png');
-	res.send(user.avatar);
+exports.getAvatar = catchAsync(async (req, res, next) => {
+	const user = await User.findById(req.user.id).select('-password');
+	if (!user) {
+		return next(new AppError('No user found', 401));
+	}
+	res.status(200).json({
+		imageUrl: user.avatar
+	});
 });
 
 // @desc        User Message page.
@@ -147,5 +168,5 @@ exports.getMessage = catchAsync(async (req, res, next) => {
 	if (!user) {
 		return next(new AppError('No user found', 401));
 	}
-	res.status(200).render('message', { friends: user.friendsList, user });
+	res.status(200).json({ friends: user.friendsList, user });
 });

@@ -119,3 +119,5 @@ dist
 
 /client/.env.local
 /client/.env.development.local
+
+tmp/

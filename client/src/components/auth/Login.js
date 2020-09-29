@@ -5,6 +5,7 @@ import AuthContext from '../../context/auth/authContext';
 import './auth.css';
 
 const Login = props => {
+	const { location, history } = props;
 	const alertContext = useContext(AlertContext);
 	const authContext = useContext(AuthContext);
 	const { setAlert } = alertContext;
@@ -13,10 +14,14 @@ const Login = props => {
 	useEffect(() => {
 		loadUser();
 		if (isAuthenticated) {
-			props.history.push('/ranter/newsfeed');
+			if (location.state && location.state.from) {
+				history.push(location.state.from);
+			} else {
+				history.push('/ranter/newsfeed');
+			}
 		}
 		if (error) {
-			console.log(error);
+			setAlert(error, 'danger');
 			clearErrors();
 		}
 		// eslint-disable-next-line

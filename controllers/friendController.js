@@ -7,13 +7,15 @@ const AppError = require('../utils/errorApp');
 // @access      private
 exports.searchUser = catchAsync(async (req, res) => {
 	const searchedUser = await User.findOne({ username: req.params.username });
+
+	// If user not Found, it will return empty array
 	if (!searchedUser) {
 		return res.status(204).json({
 			data: []
 		});
 	}
 
-	// If user searches for its username. it will return nothing
+	// If user searches for its own username. it will return nothing
 	if (req.user.username === searchedUser.username) {
 		// const  = await User.findOne({ username: req.params.username });
 		return res.status(200).render('search', {
@@ -26,6 +28,7 @@ exports.searchUser = catchAsync(async (req, res) => {
 	const sender = await User.findOne({
 		username: req.user.username
 	});
+
 	const { friendsList, sentRequest, request } = sender;
 	const sR = sentRequest.find(i => i.username === searchedUser.username);
 	const findInRequest = request.find(i => i.username === searchedUser.username);
