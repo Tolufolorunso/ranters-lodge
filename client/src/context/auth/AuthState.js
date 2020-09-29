@@ -19,8 +19,10 @@ const AuthState = ({ children }) => {
 	const initialState = {
 		token: localStorage.getItem('token'),
 		isAuthenticated: null,
+		loading: true,
 		error: null,
-		user: null
+		user: null,
+		avatarUrl: null
 	};
 
 	const [state, dispatch] = useReducer(authReducer, initialState);
@@ -47,8 +49,6 @@ const AuthState = ({ children }) => {
 
 	// Regitser User
 	const register = async userData => {
-		loadUser();
-
 		// const config = {
 		// 	headers: {
 		// 		'Content-Type': 'applicatioin/json'
@@ -61,6 +61,7 @@ const AuthState = ({ children }) => {
 				type: REGISTER_SUCCESS,
 				payload: res.data
 			});
+			loadUser();
 		} catch (error) {
 			dispatch({
 				type: REGISTER_FAIL,
@@ -79,7 +80,7 @@ const AuthState = ({ children }) => {
 			});
 			loadUser();
 		} catch (error) {
-			console.log(error.response.data.error);
+			console.log(error.response);
 			dispatch({
 				type: LOGIN_FAIL,
 				payload: error.response.data.errorMessage

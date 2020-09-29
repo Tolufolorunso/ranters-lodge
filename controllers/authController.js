@@ -78,7 +78,7 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 	const user = await User.create({
 		name,
 		username,
-		avatar,
+		avatar: avatar,
 		password,
 		gender: 'male',
 		zip,
@@ -88,7 +88,6 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 
 	// create token
 	const token = user.getSignedJWTToken();
-	console.log(token);
 	res.status(201).send({ token });
 });
 
@@ -97,8 +96,6 @@ exports.postRegisterForm = catchAsync(async (req, res, next) => {
 // @access      public
 exports.postLoginForm = catchAsync(async (req, res, next) => {
 	const { password, email } = req.body;
-
-	console.log(req.body);
 
 	// validate user: email and password
 	if (!email || !password) {

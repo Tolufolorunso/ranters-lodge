@@ -9,7 +9,7 @@ const Register = props => {
 	const alertContext = useContext(AlertContext);
 	const authContext = useContext(AuthContext);
 	const { setAlert } = alertContext;
-	const { register, error, isAuthenticated, loadUser } = authContext;
+	const { register, error, isAuthenticated } = authContext;
 
 	const [user, setUser] = useState({
 		email: '',
@@ -20,13 +20,12 @@ const Register = props => {
 	});
 
 	useEffect(() => {
-		loadUser();
+		// loadUser();
 		if (isAuthenticated) {
 			props.history.push('/ranter/newsfeed');
 		}
-		if (error) {
-			console.log(error);
-		}
+		// if (error) {
+		// }
 		// eslint-disable-next-line
 	}, [error, isAuthenticated, props.history]);
 

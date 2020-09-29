@@ -30,7 +30,7 @@
 .profile__card-image {
     height: 120px;
     width: 100%;
-    background: url(/public/images/card-img.jpg);
+    background: url(../../images/card-img.jpg);
     background-size: cover;
     background-position: 0px -45px;
     background-repeat: no-repeat;

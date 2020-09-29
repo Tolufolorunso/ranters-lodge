@@ -14,7 +14,6 @@ const ForgetPassword = () => {
 	};
 	const handleSubmit = evt => {
 		evt.preventDefault();
-		console.log(formData);
 	};
 
 	return (

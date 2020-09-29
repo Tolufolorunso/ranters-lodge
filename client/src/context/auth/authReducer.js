@@ -16,8 +16,10 @@ export default (state, action) => {
 			return {
 				...state,
 				isAuthenticated: true,
+				loading: false,
 				user: payload,
-				error: null
+				error: null,
+				avatarUrl: payload.avatar
 			};
 		case REGISTER_SUCCESS:
 		case LOGIN_SUCCESS:
@@ -25,7 +27,9 @@ export default (state, action) => {
 			return {
 				...state,
 				...payload,
+				loading: false,
 				isAuthenticated: true,
+				avatarUrl: payload.avatar,
 				error: null
 			};
 		case REGISTER_FAIL:
@@ -38,7 +42,8 @@ export default (state, action) => {
 				token: null,
 				isAuthenticated: false,
 				user: null,
-				error: payload
+				error: payload,
+				loading: false
 			};
 
 		case CLEAR_ERRORS:

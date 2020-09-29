@@ -5,7 +5,6 @@ import Navbar from './components/layout/navigation/Navbar';
 import Register from './components/auth/Register';
 import Newsfeed from './components/pages/newsfeed/Newsfeed';
 import ForgetPassword from './components/auth/ForgetPassword';
-
 import './App.css';
 import 'materialize-css/dist/css/materialize.min.css';
 import Profile from './components/profile/Profile';
@@ -17,6 +16,7 @@ import AlertState from './context/alert/AlertState';
 import Alert from './components/layout/alert/Alert';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
+import ProfileState from './context/profile/ProfileState';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -26,26 +26,31 @@ function App() {
 	return (
 		<AuthState>
 			<AlertState>
-				<Router>
-					<Fragment>
-						<Navbar />
-						<Alert />
-						<Switch>
-							<Route exact path="/" component={Home} />
-							<Route exact path="/users/login" component={Login} />
-							<Route exact path="/users/register" component={Register} />
-							<Route path="/users/forgetpassword" component={ForgetPassword} />
-							<PrivateRoute
-								exact
-								path="/ranter/newsfeed"
-								component={Newsfeed}
-							/>
-							<PrivateRoute exact path="/users/me" component={Profile} />
-							<PrivateRoute exact path="/users/message" component={Message} />
-						</Switch>
-						<Footer />
-					</Fragment>
-				</Router>
+				<ProfileState>
+					<Router>
+						<Fragment>
+							<Navbar />
+							<Alert />
+							<Switch>
+								<Route exact path="/" component={Home} />
+								<Route exact path="/users/login" component={Login} />
+								<Route exact path="/users/register" component={Register} />
+								<Route
+									path="/users/forgetpassword"
+									component={ForgetPassword}
+								/>
+								<PrivateRoute
+									exact
+									path="/ranter/newsfeed"
+									component={Newsfeed}
+								/>
+								<PrivateRoute exact path="/users/me" component={Profile} />
+								<PrivateRoute exact path="/users/message" component={Message} />
+							</Switch>
+							<Footer />
+						</Fragment>
+					</Router>
+				</ProfileState>
 			</AlertState>
 		</AuthState>
 	);
