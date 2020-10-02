@@ -3,9 +3,10 @@ import Spinner from '../layout/spinner/Spinner';
 
 const ProfileMe = props => {
 	const { avatar, upload, loading, userName } = props;
+	console.log(avatar);
 
 	const onUpload = async evt => {
-		upload(evt.target.files[0]);
+		upload(evt.target.files[0], avatar[1]);
 	};
 
 	return (
@@ -17,7 +18,7 @@ const ProfileMe = props => {
 				) : (
 					<img
 						id="profile-pic"
-						src={`https:${avatar}`}
+						src={`https:${avatar[0]}`}
 						alt="mary"
 						className="broken-image circle responsive-img profile__img"
 					/>

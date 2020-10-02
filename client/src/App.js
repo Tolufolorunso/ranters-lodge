@@ -17,6 +17,7 @@ import Alert from './components/layout/alert/Alert';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 import ProfileState from './context/profile/ProfileState';
+import PostState from './context/post/PostState';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -25,33 +26,39 @@ if (localStorage.token) {
 function App() {
 	return (
 		<AuthState>
-			<AlertState>
-				<ProfileState>
-					<Router>
-						<Fragment>
-							<Navbar />
-							<Alert />
-							<Switch>
-								<Route exact path="/" component={Home} />
-								<Route exact path="/users/login" component={Login} />
-								<Route exact path="/users/register" component={Register} />
-								<Route
-									path="/users/forgetpassword"
-									component={ForgetPassword}
-								/>
-								<PrivateRoute
-									exact
-									path="/ranter/newsfeed"
-									component={Newsfeed}
-								/>
-								<PrivateRoute exact path="/users/me" component={Profile} />
-								<PrivateRoute exact path="/users/message" component={Message} />
-							</Switch>
-							<Footer />
-						</Fragment>
-					</Router>
-				</ProfileState>
-			</AlertState>
+			<PostState>
+				<AlertState>
+					<ProfileState>
+						<Router>
+							<Fragment>
+								<Navbar />
+								<Alert />
+								<Switch>
+									<Route exact path="/" component={Home} />
+									<Route exact path="/users/login" component={Login} />
+									<Route exact path="/users/register" component={Register} />
+									<Route
+										path="/users/forgetpassword"
+										component={ForgetPassword}
+									/>
+									<PrivateRoute
+										exact
+										path="/ranter/newsfeed"
+										component={Newsfeed}
+									/>
+									<PrivateRoute exact path="/users/me" component={Profile} />
+									<PrivateRoute
+										exact
+										path="/users/message"
+										component={Message}
+									/>
+								</Switch>
+								<Footer />
+							</Fragment>
+						</Router>
+					</ProfileState>
+				</AlertState>
+			</PostState>
 		</AuthState>
 	);
 }

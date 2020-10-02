@@ -9,13 +9,18 @@ const PostSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	name: {
-		type: String
-	},
-	avatar: {
+	image: {
 		type: String
 	},
 	likes: [
+		{
+			user: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'User'
+			}
+		}
+	],
+	unlikes: [
 		{
 			user: {
 				type: mongoose.Schema.Types.ObjectId,

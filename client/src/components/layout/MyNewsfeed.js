@@ -9,7 +9,7 @@ const MyNewsfeed = () => {
 				<li>
 					<i className="material-icons">camera_alt</i>
 					<div>
-						<Link to="/newsfeed" className="my-newsfeed__nav--link">
+						<Link to="/ranter/newsfeed" className="my-newsfeed__nav--link">
 							My Newsfeed
 						</Link>
 					</div>
@@ -17,7 +17,7 @@ const MyNewsfeed = () => {
 				<li>
 					<i className="material-icons">camera_alt</i>
 					<div>
-						<Link to="/com" className="my-newsfeed__nav--link">
+						<Link to="/ranter/friends" className="my-newsfeed__nav--link">
 							Comforters
 						</Link>
 					</div>

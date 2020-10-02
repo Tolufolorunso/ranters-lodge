@@ -28,8 +28,12 @@ const UserSchema = new mongoose.Schema({
 	city: {
 		type: String
 	},
+	postCount: {
+		type: Number,
+		default: 0
+	},
 	avatar: {
-		type: String
+		type: []
 	},
 	image: {
 		type: Buffer
