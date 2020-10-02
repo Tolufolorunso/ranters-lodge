@@ -66,18 +66,20 @@ const ProfileState = ({ children }) => {
 	};
 
 	// Upload avatar
-	const upload = async file => {
+	const upload = async (file, imagePublicId) => {
 		try {
 			const formData = new FormData();
 			formData.append('avatar', file);
+			formData.append('id', imagePublicId);
 			const res = await axios.patch('/api/v1/profile/me/avatar', formData, {
 				headers: {
 					'content-type': 'multipart/form-data'
 				}
 			});
+			console.log(res.data.avatar);
 			dispatch({
 				type: USER_IMAGE,
-				payload: res.data.imageUrl
+				payload: res.data.avatar
 			});
 		} catch (error) {
 			console.log(error.response);

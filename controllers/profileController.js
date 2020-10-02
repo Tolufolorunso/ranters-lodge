@@ -2,7 +2,8 @@ const catchAsync = require('../middlewares/catchAysnc');
 const User = require('../models/UserModels');
 const AppError = require('../utils/errorApp');
 const cloudinary = require('cloudinary').v2;
-const { validationResult, Result } = require('express-validator');
+const { validationResult } = require('express-validator');
+const Post = require('../models/PostModels');
 
 // @desc        Get my detail(profile).
 // @route       GET /profile/me
@@ -122,12 +123,8 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
 // @route       PATCH /users/me/avatar
 // @access      private
 exports.updateAvatar = catchAsync(async (req, res, next) => {
+	console.log(req.files, req.body.id);
 	const file = req.files.avatar;
-	console.log('line 133', file);
-
-	// const buffer = await sharp(file).resize(150, 200).png();
-	// console.log(buffer);
-
 	const image = await cloudinary.uploader.upload(file.tempFilePath, {
 		width: 100,
 		height: 100,
@@ -139,15 +136,18 @@ exports.updateAvatar = catchAsync(async (req, res, next) => {
 
 	const imageUrl = image.url.substr(5);
 
-	console.log('working', imageUrl);
-
-	await User.findByIdAndUpdate(req.user.id, {
-		avatar: imageUrl
+	const user = await User.findByIdAndUpdate(req.user.id, {
+		avatar: [imageUrl, image.public_id]
 	});
-	res.status(200).json({ status: 'success', imageUrl });
+
+	console.log(user, user.avatar);
+
+	await cloudinary.uploader.destroy(req.body.id);
+
+	res.status(200).json({ status: 'success', avatar: user.avatar });
 });
 
-// @desc        Update user profile avatar
+// @desc        Get user profile avatar
 // @route       GET users/:Id/avatar
 // @access      Private
 exports.getAvatar = catchAsync(async (req, res, next) => {

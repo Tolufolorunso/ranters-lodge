@@ -1,12 +1,16 @@
 import React from 'react';
 import postImage from '../../../images/mary.jpg';
 
-const GetComments = () => {
+const GetComments = ({ post }) => {
+	const comment =
+		post.comments.length > 0
+			? post.comments[0]
+			: { avatar: postImage, text: 'Be the first to comment', name: '' };
 	return (
 		<div className="post-detail__post-comment mb-s">
 			<div className="postContent__img">
 				<img
-					src={postImage}
+					src={`http:${comment.avatar}`}
 					alt=""
 					className="broken-image circle responsive-img"
 				/>
@@ -14,11 +18,9 @@ const GetComments = () => {
 
 			<p>
 				<a href="timeline.html" className="profile-link">
-					John
+					{comment.name} - {''}
 				</a>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-				veniam, quis nostrud
+				{comment.text}
 			</p>
 		</div>
 	);

@@ -12,3 +12,7 @@ export const USER_IMAGE = 'USER_IMAGE';
 export const GET_PROFILE = 'GET_PROFILE';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
+export const GET_POST = 'GET_POST';
+export const ADD_POST = 'ADD_POST';
+export const LIKE_POST = 'LIKE_POST';
+export const POST_ERROR = 'POST_ERROR';
