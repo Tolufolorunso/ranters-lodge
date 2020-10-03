@@ -4,9 +4,10 @@ import AuthContext from '../../../context/auth/authContext';
 
 const NavDropdown = () => {
 	const authContext = useContext(AuthContext);
+	const { logOut } = authContext;
 
 	const onLogOut = () => {
-		authContext.logOut();
+		logOut();
 	};
 	return (
 		<ul
@@ -16,7 +17,7 @@ const NavDropdown = () => {
 		>
 			<li>
 				<NavLink to="/users/me" className="pink-text">
-					profile
+					Profile
 				</NavLink>
 			</li>
 			<li>
@@ -26,7 +27,7 @@ const NavDropdown = () => {
 			</li>
 			<li>
 				<a href="/#!" className="pink-text" onClick={onLogOut}>
-					logout
+					Logout
 				</a>
 			</li>
 		</ul>

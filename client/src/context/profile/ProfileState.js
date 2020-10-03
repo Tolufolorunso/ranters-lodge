@@ -7,6 +7,7 @@ import {
 	USER_IMAGE,
 	GET_PROFILE,
 	UPDATE_PROFILE,
+	USER_PROFILE,
 	PROFILE_ERROR
 } from '../types';
 
@@ -22,9 +23,9 @@ const ProfileState = ({ children }) => {
 
 	// Get Profile
 	const getProfile = async () => {
-		if (localStorage.token) {
-			setAuthToken(localStorage.token);
-		}
+		// if (localStorage.token) {
+		// 	setAuthToken(localStorage.token);
+		// }
 
 		try {
 			const res = await axios.get('/api/v1/profile/me');
@@ -90,15 +91,32 @@ const ProfileState = ({ children }) => {
 		}
 	};
 
+	// Get User Profile
+	const getUserProfile = async username => {
+		try {
+			const res = await axios.get(`/api/v1/profile/user/${username}`);
+			dispatch({
+				type: USER_PROFILE,
+				payload: res.data.data
+			});
+		} catch (error) {
+			dispatch({
+				type: PROFILE_ERROR,
+				payload: error.response.data.error
+			});
+		}
+	};
+
 	return (
 		<ProfileContext.Provider
 			value={{
 				avatar: state.avatar,
 				upload,
 				getProfile,
+				getUserProfile,
+				updateProfile,
 				profile: state.profile,
-				loading: state.loading,
-				updateProfile
+				loading: state.loading
 			}}
 		>
 			{children}

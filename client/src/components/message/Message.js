@@ -9,7 +9,8 @@ import SendMessage from './SendMessage';
 import AuthContext from '../../context/auth/authContext';
 
 const Message = () => {
-	const { loadUser } = useContext(AuthContext);
+	const { loadUser, user } = useContext(AuthContext);
+	console.log(user.friendsList);
 
 	useEffect(() => {
 		loadUser();
@@ -20,11 +21,9 @@ const Message = () => {
 			<div className="container">
 				<div className="row mt-m">
 					<div className="col l4 m12">
-						<ProfileCard />
 						<MyNewsfeed />
 					</div>
 					<div className="col l8 m12">
-						<CreatePost />
 						<div className="chat-box">
 							<div className="chat-box__main">
 								<div className="chat-box__main-header">
@@ -57,14 +56,7 @@ const Message = () => {
 									<input type="text" placeholder="search" />
 									<i className="fa fa-search"></i>
 								</div>
-								<ul className="lists scrollbar">
-									<FriendLists />
-									<FriendLists />
-									<FriendLists />
-									<FriendLists />
-									<FriendLists />
-									<FriendLists />
-								</ul>
+								<ul className="lists scrollbar"></ul>
 							</div>
 						</div>
 					</div>

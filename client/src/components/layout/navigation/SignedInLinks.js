@@ -25,6 +25,9 @@ const SignedInLinks = () => {
 					<NavLink to="/ranter/newsfeed">NewsFeed</NavLink>
 				</li>
 				<li>
+					<NavLink to="/users/search">Find Friend</NavLink>
+				</li>
+				<li>
 					<NavLink to="/users/message">Message</NavLink>
 				</li>
 				<li>
@@ -32,7 +35,7 @@ const SignedInLinks = () => {
 						className="btn btn-floating pink lighten-1 dropdown-trigger"
 						data-target="dropdown1"
 					>
-						FT
+						R
 					</span>
 				</li>
 			</ul>
