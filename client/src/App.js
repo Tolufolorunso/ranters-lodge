@@ -18,6 +18,9 @@ import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 import ProfileState from './context/profile/ProfileState';
 import PostState from './context/post/PostState';
+import SearchFriend from './components/pages/seacrh/SearchFriend';
+import FriendState from './context/chat/FriendState';
+import UserProfile from './components/profile/UserProfile';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -26,39 +29,51 @@ if (localStorage.token) {
 function App() {
 	return (
 		<AuthState>
-			<PostState>
-				<AlertState>
-					<ProfileState>
-						<Router>
-							<Fragment>
-								<Navbar />
-								<Alert />
-								<Switch>
-									<Route exact path="/" component={Home} />
-									<Route exact path="/users/login" component={Login} />
-									<Route exact path="/users/register" component={Register} />
-									<Route
-										path="/users/forgetpassword"
-										component={ForgetPassword}
-									/>
-									<PrivateRoute
-										exact
-										path="/ranter/newsfeed"
-										component={Newsfeed}
-									/>
-									<PrivateRoute exact path="/users/me" component={Profile} />
-									<PrivateRoute
-										exact
-										path="/users/message"
-										component={Message}
-									/>
-								</Switch>
-								<Footer />
-							</Fragment>
-						</Router>
-					</ProfileState>
-				</AlertState>
-			</PostState>
+			<FriendState>
+				<PostState>
+					<AlertState>
+						<ProfileState>
+							<Router>
+								<Fragment>
+									<Navbar />
+									<Alert />
+									<Switch>
+										<Route exact path="/" component={Home} />
+										<Route exact path="/users/login" component={Login} />
+										<Route exact path="/users/register" component={Register} />
+										<Route
+											path="/users/forgetpassword"
+											component={ForgetPassword}
+										/>
+										<PrivateRoute
+											exact
+											path="/ranter/newsfeed"
+											component={Newsfeed}
+										/>
+										<PrivateRoute exact path="/users/me" component={Profile} />
+										<PrivateRoute
+											exact
+											path="/users/message"
+											component={Message}
+										/>
+										<PrivateRoute
+											exact
+											path="/users/search"
+											component={SearchFriend}
+										/>
+										<PrivateRoute
+											exact
+											path="/profile/:username"
+											component={UserProfile}
+										/>
+									</Switch>
+									<Footer />
+								</Fragment>
+							</Router>
+						</ProfileState>
+					</AlertState>
+				</PostState>
+			</FriendState>
 		</AuthState>
 	);
 }

@@ -29,7 +29,7 @@ router.put(
 	updateProfile
 );
 router.get('/', getAllProfile);
-router.get('/user/:userId', getUser);
+router.get('/user/:username', getUser);
 router.delete('/', protect, deleteUser);
 router.get('/message', protect, getMessage);
 router.get('/avatar', protect, getAvatar);

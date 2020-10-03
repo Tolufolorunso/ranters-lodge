@@ -36,20 +36,16 @@ exports.getAllProfile = catchAsync(async (req, res, next) => {
 });
 
 // @desc        Get user profile by user id.
-// @route       GET /profile/user/:userId
+// @route       GET /profile/user/:username
 // @access      Public
 exports.getUser = catchAsync(async (req, res, next) => {
-	const profile = await User.findOne({ _id: req.params.userId }).select(
-		'name avatar bio username'
-	);
-	if (!profile) {
+	const userProfile = await User.findOne({ username: req.params.username });
+	if (!userProfile) {
 		return next(new AppError('There is no profile found', 400));
 	}
 	res.status(200).json({
 		status: 'success',
-		data: {
-			profile
-		}
+		data: userProfile
 	});
 });
 

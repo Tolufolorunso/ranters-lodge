@@ -2,13 +2,15 @@ import {
 	USER_IMAGE,
 	GET_PROFILE,
 	UPDATE_PROFILE,
-	PROFILE_ERROR
+	PROFILE_ERROR,
+	USER_PROFILE
 } from '../types';
 
 export default (state, action) => {
 	const { type, payload } = action;
 	switch (type) {
 		case GET_PROFILE:
+		case USER_PROFILE:
 			return {
 				...state,
 				avatar: payload.avatar,
